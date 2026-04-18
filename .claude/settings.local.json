@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest tests/test_verify_homepage.py -v)",
+      "Bash(venv/bin/python *)",
+      "Bash(git -C /Users/vananhluu/Documents/autotest_ai status)",
+      "Bash(ssh-add *)"
+    ]
+  }
+}
