@@ -2,7 +2,7 @@ from playwright.sync_api import Page, expect, Locator, TimeoutError
 
 class BasePage:
     """Lớp cha chứa các hành động Playwright cơ bản, kế thừa cho mọi Page Object."""
-
+    #  Always create a def __init to init a page
     def __init__(self, page: Page):
         self.page = page
 
