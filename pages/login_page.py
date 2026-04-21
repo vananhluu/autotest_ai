@@ -1,20 +1,25 @@
-import playwright
-
-from .base_page import BasePage
-from playwright.sync_api import expect
+import json
 import time
-class LoginPage(BasePage):
-    URL = "https://hrm.anhtester.com/erp/login"
-    Username = "#iusername"
-    Password = "#ipassword"
-    BtnLogin = "//button[contains(@class, 'btn-primary')]"
 
-    def goto(self):
-        browser = playwright.chromium.launch(headless=False)
-        self._visit(self.URL)
-    def login_with_account(self, username, password):
-        self.goto()
-        self._fill(self.Username, username)
-        self._fill(self.Password, password)
-        self._click(self.BtnLogin)
-        time.sleep(10)
+from core.base_page import BasePage
+# from pages.login_page_hrm import LoginPage
+# from pages.login_page import LoginPage
+from playwright.sync_api import Page, expect, Locator, TimeoutError
+
+class LoginPage(BasePage):
+    URL = "https://www.saucedemo.com/"
+    def __init__(self, page: Page):
+        self.page = page
+        self.username = page.locator("#user-name")
+        self.password = page.locator("#password")
+        self.login_button = page.locator("#login-button")
+        self.error_message = page.locator("[data-test='error']")
+    def open(self):
+        self.page.goto(self.URL)
+
+    def login(self, username: str, password: str):
+        self.username.fill(username)
+        self.password.fill(password)
+        self.login_button.click()
+        time.sleep(5)
+        self._take_screenshot("logged_in_successfully.png")
