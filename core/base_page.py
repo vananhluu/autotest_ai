@@ -6,7 +6,7 @@ class BasePage:
     def __init__(self, page: Page):
         self.page = page
 
-    def _visit(self, url: str):
+    def _open_url(self, url: str):
         """Điều hướng tới URL được chỉ định."""
         print(f"[BasePage] Truy cập: {url}")
         self.page.goto(url, wait_until="domcontentloaded")

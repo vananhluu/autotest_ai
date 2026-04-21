@@ -14,12 +14,22 @@ class LoginPage(BasePage):
         self.password = page.locator("#password")
         self.login_button = page.locator("#login-button")
         self.error_message = page.locator("[data-test='error']")
+
+    def load_credentials(self, user_type: str):
+        with open("data/credentials.json","r") as file:
+            return json.load(file)[0][user_type]
+
     def open(self):
         self.page.goto(self.URL)
+        self._take_screenshot("open_login_page.png")
 
-    def login(self, username: str, password: str):
-        self.username.fill(username)
-        self.password.fill(password)
+    def login(self, user_type: str):
+        creds = self.load_credentials(user_type)
+        self.username.fill(creds["username"])
+        self.password.fill(creds["password"])
         self.login_button.click()
         time.sleep(5)
-        self._take_screenshot("logged_in_successfully.png")
+        self._take_screenshot("after_login.png")
+
+
+
